@@ -13,6 +13,7 @@ $(function () {
 
     // 从layui 中获取 form对象
     var form = layui.form
+    var layer = layui.layer
     // 通过 form.verify()函数自定义校验规则
     form.verify({
         // 自定义了一个叫做PWD校验规则
@@ -28,5 +29,22 @@ $(function () {
                 return '两次密码不一致!'
             }
         }
+    })
+
+    // 监听注册表单的提交事件
+    $('#form_reg').on('submit', function (e) {
+        // 1. 阻止默认的提交行为
+        e.preventDefault()
+        $.post('http://ajax.frontend.itheima.net/api/reguser', {
+            username: $('#form_reg [name=username]').val(),
+            password: $('#form_reg [name=password]').val()
+        }, function (res) {
+            if (res.status !== 0) {
+                return layer.msg(res.message)
+            }
+            layer.msg('注册成功，请登录！')
+            // 模拟人的点击行为
+            $('#link_login').click()
+        })
     })
 })

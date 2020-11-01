@@ -35,7 +35,7 @@ $(function () {
     $('#form_reg').on('submit', function (e) {
         // 1. 阻止默认的提交行为
         e.preventDefault()
-        $.post('http://ajax.frontend.itheima.net/api/reguser', {
+        $.post('/api/reguser', {
             username: $('#form_reg [name=username]').val(),
             password: $('#form_reg [name=password]').val()
         }, function (res) {
@@ -53,7 +53,7 @@ $(function () {
         // 1. 阻止默认的提交行为
         e.preventDefault()
         $.ajax({
-            url: 'http://ajax.frontend.itheima.net/api/login',
+            url: '/api/login',
             method: 'POST',
             data: $(this).serialize(),
             success: function (res) {

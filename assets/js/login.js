@@ -47,4 +47,25 @@ $(function () {
             $('#link_login').click()
         })
     })
+
+    // 监听登陆表单的提交事件
+    $('#form_login').submit(function (e) {
+        // 1. 阻止默认的提交行为
+        e.preventDefault()
+        $.ajax({
+            url: 'http://ajax.frontend.itheima.net/api/login',
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('登录失败!')
+                }
+                layer.msg('登录成功!')
+                // 将登陆成功得到的 token 字符串保存到本地
+                localStorage.setItem('token', res.token)
+                // 跳转到后台主页
+                location.href = '/index.html'
+            }
+        })
+    })
 })

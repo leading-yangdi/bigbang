@@ -66,4 +66,22 @@ $(function () {
             }
         })
     })
+
+    // 通过代理的形式,为修改分类的表单绑定submit事件
+    $('body').on('submit', '#form-edit', function (e) {
+        e.preventDefault()
+        $.ajax({
+            method: 'POST',
+            url: '/my/article/updatecate',
+            data: $(this).serialize(),
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('更新分类数据失败!')
+                }
+                layer.msg('更新分类数据成功!')
+                layer.close(indexEdit)
+                initArtCateList()
+            }
+        })
+    })
 })

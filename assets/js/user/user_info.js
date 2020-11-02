@@ -27,4 +27,11 @@ $(function () {
             }
         })
     }
+
+    // 重置表单的数据
+    $('#btnReset').on('click', function (e) {
+        // 阻止表单的默认行为
+        e.preventDefault()
+        initUserInfo()
+    })
 })

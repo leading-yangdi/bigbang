@@ -1,5 +1,7 @@
 $(function () {
 
+    var layer = layui.layer
+
     initArtCateList()
 
 
@@ -14,4 +16,14 @@ $(function () {
             }
         })
     }
+
+    // 为添加类别按钮绑定点击事件
+    $('#btnAddCate').on('click', function () {
+        layer.open({
+            type: 1,
+            area: ['500px', '250px'],
+            title: '添加文章文类',
+            content: $('#dialog-add').html()
+        })
+    })
 })

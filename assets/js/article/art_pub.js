@@ -40,4 +40,20 @@ $(function () {
     $('#btnChooseImage').on('click', function () {
         $('#coverFile').click()
     })
+
+    // 监听caverFile 的change事件,获取用户选择的文件
+    $('#coverFile').on('change', function (e) {
+        var files = e.target.files
+
+        if (files.length === 0) {
+            return
+        }
+
+        var newImgURL = URL.createObjectURL(files[0])
+
+        $image
+            .cropper('destroy')      // 销毁旧的裁剪区域
+            .attr('src', newImgURL)  // 重新设置图片路径
+            .cropper(options)        // 重新初始化裁剪区域
+    })
 })

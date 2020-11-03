@@ -35,4 +35,9 @@ $(function () {
 
     // 3. 初始化裁剪区域
     $image.cropper(options)
+
+    // 绑定点击事件
+    $('#btnChooseImage').on('click', function () {
+        $('#coverFile').click()
+    })
 })

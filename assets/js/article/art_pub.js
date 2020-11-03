@@ -67,19 +67,45 @@ $(function () {
 
     // 为表单绑定事件
     $('#form-pub').on('submit', function (e) {
+
         e.preventDefault()
 
-        var fd = new.FormData($(this)[0])
+        var fd = new FormData($(this)[0])
 
         fd.append('state', art_state)
 
         $image
-            .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
+            .cropper('getCroppedCanvas', {
+                // 创建一个 Canvas 画布
                 width: 400,
                 height: 280
             })
-            .toBlob(function (blob) {       // 将 Canvas 画布上的内容，转化为文件对象
+            .toBlob(function (blob) {
+                // 将 Canvas 画布上的内容，转化为文件对象
                 fd.append('cover_img', blob)
+
+                publishArticle(fd)
             })
     })
+
+    // 定义一个发布文章的方法
+    function publishArticle(fd) {
+        $.ajax({
+            method: 'POST',
+            url: '/my/article/add',
+            data: fd,
+            // 注意：如果向服务器提交的是 FormData 格式的数据，
+            // 必须添加以下两个配置项
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.status !== 0) {
+                    return layer.msg('发布文章失败！')
+                }
+                layer.msg('发布文章成功！')
+                // 发布文章成功后，跳转到文章列表页面
+                location.href = '/article/art_list.html'
+            }
+        })
+    }
 })

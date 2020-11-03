@@ -90,8 +90,12 @@ $(function () {
             count: total, // 总数据条数
             limit: q.pagesize, // 每页显示几条数据
             curr: q.pagenum, // 设置默认被选中
+            layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
+            limits: [2, 3, 5, 10],
             jump: function (obj, first) {
                 q.pagenum = obj.curr
+
+                q.pagesize = obj.limit
                 if (!first) {
                     initTable()
                 }

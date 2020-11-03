@@ -2,6 +2,7 @@ $(function () {
 
     var layer = layui.layer
     var form = layui.form
+    var laypage = layui.laypage
 
     // 定义美化事件的过滤器
     template.defaults.imports.dataFormat = function (date) {
@@ -47,6 +48,8 @@ $(function () {
                 //使用模板引擎渲染页面的数据
                 var htmlStr = template('tpl-table', res)
                 $('tbody').html(htmlStr)
+
+                renderPage(res.total)
             }
         })
     }
@@ -79,4 +82,14 @@ $(function () {
 
         initTable()
     })
+
+    // 定义渲染分页的方法
+    function renderPage(total) {
+        laypage.render({
+            elem: 'pageBox', // 分页的ID
+            count: total, // 总数据条数
+            limit: q.pagesize, // 每页显示几条数据
+            curr: q.pagenum // 设置默认被选中
+        })
+    }
 })

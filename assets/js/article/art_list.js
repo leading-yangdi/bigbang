@@ -89,7 +89,13 @@ $(function () {
             elem: 'pageBox', // 分页的ID
             count: total, // 总数据条数
             limit: q.pagesize, // 每页显示几条数据
-            curr: q.pagenum // 设置默认被选中
+            curr: q.pagenum, // 设置默认被选中
+            jump: function (obj, first) {
+                q.pagenum = obj.curr
+                if (!first) {
+                    initTable()
+                }
+            }
         })
     }
 })

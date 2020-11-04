@@ -70,7 +70,7 @@ $(function () {
 
         e.preventDefault()
 
-        var fd = new FormData($(this)[0])
+        var fd = new FormData(this)
 
         fd.append('state', art_state)
 
